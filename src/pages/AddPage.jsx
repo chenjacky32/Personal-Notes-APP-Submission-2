@@ -11,8 +11,10 @@ export default function AddPage() {
   const Navigate = useNavigate();
 
   function AddNoteHandler(notes) {
-    addNote(notes);
+    addNote({ title: title, body: body });
     Navigate("/notes/");
+    setTitle("");
+    setBody("");
   }
 
   function onInputHandler(e) {
@@ -25,22 +27,13 @@ export default function AddPage() {
     console.log(newTitle);
   }
 
-  function HandleSubmitNote(e) {
-    e.preventDefault();
-    addNote({ title: title, body: body });
-    setTitle("");
-    setBody("");
-  }
-
   return (
     <>
       <section className="add-new-page">
-        {/* <form onSubmit={HandleSubmitNote}> */}
         <FormInput title={title} InputHandler={onInputHandler} ChangeTitle={EventChangeTitle} body={body} />
         <div className="anewTitlection">
           <ButtonInput addNote={AddNoteHandler} />
         </div>
-        {/* </form> */}
       </section>
     </>
   );

@@ -1,3 +1,6 @@
+import React from "react";
+import PropTypes from "prop-types";
+
 export default function ButtonInput({ addNote }) {
   return (
     <>
@@ -10,3 +13,7 @@ export default function ButtonInput({ addNote }) {
     </>
   );
 }
+
+ButtonInput.propTypes = {
+  addNote: PropTypes.func.isRequired,
+};

@@ -1,27 +1,50 @@
-import React, { useState } from "react";
+import React from "react";
+import SearchBar from "../component/SearchBar";
+import NotesList from "../component/NotesList";
+import ButtonAddPage from "../component/ButtonAddPage";
+import { getAllNotes, getActiveNotes, getArchivedNotes } from "../utils/local-data";
+import { showFormattedDate } from "../utils";
 
-export default function Archives() {
-  const [input, setInput] = useState("");
+class Archives extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      AllNotes: getAllNotes(),
+      isArchive: getActiveNotes(),
+      isArchived: getArchivedNotes(),
+      Search: "",
+    };
+    this.onSearchHandler = this.onSearchHandler.bind(this);
+  }
 
-  return (
-    <>
-      <section className="archives-page">
-        <h2>Catatan Arsip</h2>
-        <section className="search-bar">
-          <input
-            type="text"
-            placeholder="Cari berdasarkan judul ..."
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-              console.log(input);
-            }}
-          />
+  onSearchHandler(keyword) {
+    this.setState(() => {
+      return {
+        Search: keyword,
+      };
+    });
+  }
+  render() {
+    const ActiveNotes = this.state.AllNotes.filter((item) => {
+      return item.archived === false && item.title.toLowerCase().includes(this.state.Search.toLowerCase());
+    });
+    const ArchiveNotes = this.state.AllNotes.filter((item) => {
+      return item.archived === true && item.title.toLowerCase().includes(this.state.Search.toLowerCase());
+    });
+
+    return (
+      <>
+        <section className="archives-page">
+          <h2>Catatan Arsip</h2>
+          <SearchBar Search={this.state.Search} SearchHandler={this.onSearchHandler} />
+          <NotesList ArchiveNotes={ArchiveNotes} FormatDate={showFormattedDate} isArchive={this.state.isArchive} />
+          <div className="homepage__action">
+            <ButtonAddPage />
+          </div>
         </section>
-        <section className="notes-list-empty">
-          <p className="notes-list">Tidak ada Catatan</p>
-        </section>
-      </section>
-    </>
-  );
+      </>
+    );
+  }
 }
+
+export default Archives;

@@ -2,8 +2,8 @@ import React from "react";
 import NotesItem from "./NotesItem";
 import PropTypes, { object } from "prop-types";
 
-export default function NotesList({ getAllNotes, FormatDate }) {
-  if (!getAllNotes.length) {
+export default function NotesList({ FormatDate, ActiveNotes, ArchiveNotes }) {
+  if ((!ActiveNotes || !ActiveNotes.length) && (!ArchiveNotes || !ArchiveNotes.length)) {
     return (
       <>
         <section className="notes-list-empty">
@@ -15,15 +15,16 @@ export default function NotesList({ getAllNotes, FormatDate }) {
   return (
     <>
       <section className="notes-list">
-        {getAllNotes.map((item) => (
-          <NotesItem key={item.id} {...item} FormatDate={FormatDate} />
-        ))}
+        {ActiveNotes && ActiveNotes.map((item) => <NotesItem key={item.id} {...item} FormatDate={FormatDate} />)}
+        {ArchiveNotes && ArchiveNotes.map((item) => <NotesItem key={item.id} {...item} FormatDate={FormatDate} />)}
       </section>
     </>
   );
 }
 
 NotesList.propTypes = {
-  getAllNotes: PropTypes.arrayOf(object).isRequired,
+  // getAllNotes: PropTypes.arrayOf(object).isRequired,
   FormatDate: PropTypes.func.isRequired,
+  ActiveNotes: PropTypes.arrayOf(PropTypes.object),
+  ArchiveNotes: PropTypes.arrayOf(PropTypes.object),
 };

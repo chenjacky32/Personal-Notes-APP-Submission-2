@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import AddPage from "../pages/AddPage";
 import Archives from "../pages/Archives";
 import WrapperDetailNotes from "../pages/DetailNotes";
+import ErrorPage from "../pages/ErrorPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/notes/archives" element={<Archives />} />
           <Route path="/notes/:id" element={<WrapperDetailNotes />} />
           <Route path="/notes/new" element={<AddPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
     </div>

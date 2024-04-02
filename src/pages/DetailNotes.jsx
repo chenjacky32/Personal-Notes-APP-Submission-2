@@ -1,7 +1,7 @@
 import React from "react";
 import NotesDetail from "../component/NotesDetail";
 import { useParams } from "react-router-dom";
-import { getNote } from "../utils/local-data";
+import { getNote, deleteNote, ArchiveNote } from "../utils/local-data";
 import { showFormattedDate } from "../utils";
 
 export default function WrapperDetailNotes() {
@@ -25,7 +25,7 @@ class DetailNotes extends React.Component {
 
     return (
       <>
-        <NotesDetail {...this.state.notes} FormatDate={showFormattedDate} />
+        <NotesDetail {...this.state.notes} FormatDate={showFormattedDate} deleteNote={deleteNote} ArchiveNote={ArchiveNote} />
       </>
     );
   }
