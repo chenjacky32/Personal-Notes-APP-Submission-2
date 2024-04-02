@@ -26,4 +26,5 @@ NotesDetail.propTypes = {
   createdAt: PropTypes.string.isRequired,
   FormatDate: PropTypes.func.isRequired,
   deleteNote: PropTypes.func.isRequired,
+  ArchiveNote: PropTypes.func.isRequired,
 };

@@ -3,6 +3,7 @@ import NotesDetail from "../component/NotesDetail";
 import { useParams } from "react-router-dom";
 import { getNote, deleteNote, ArchiveNote } from "../utils/local-data";
 import { showFormattedDate } from "../utils";
+import PropTypes from "prop-types";
 
 export default function WrapperDetailNotes() {
   const { id } = useParams();
@@ -30,3 +31,6 @@ class DetailNotes extends React.Component {
     );
   }
 }
+DetailNotes.propTypes = {
+  id: PropTypes.string.isRequired,
+};

@@ -23,7 +23,6 @@ export default function NotesList({ FormatDate, ActiveNotes, ArchiveNotes }) {
 }
 
 NotesList.propTypes = {
-  // getAllNotes: PropTypes.arrayOf(object).isRequired,
   FormatDate: PropTypes.func.isRequired,
   ActiveNotes: PropTypes.arrayOf(PropTypes.object),
   ArchiveNotes: PropTypes.arrayOf(PropTypes.object),

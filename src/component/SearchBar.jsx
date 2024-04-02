@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 export default function SearchBar({ Search, SearchHandler }) {
-  // const [input, setInput] = useState("");
-
   return (
     <>
       <section className="search-bar">
@@ -18,3 +17,8 @@ export default function SearchBar({ Search, SearchHandler }) {
     </>
   );
 }
+
+SearchBar.propTypes = {
+  Search: PropTypes.string.isRequired,
+  SearchHandler: PropTypes.func.isRequired,
+};
