@@ -3,7 +3,7 @@ import ArchivesButton from "./ArchiveButton";
 import PropTypes from "prop-types";
 import DeleteButton from "./DeleteButton";
 
-export default function NotesDetail({ id, title, body, createdAt, FormatDate, deleteNote, ArchiveNote }) {
+export default function NotesDetail({ id, title, body, createdAt, FormatDate, deleteNote, ArchiveNote, UnarchiveNote }) {
   return (
     <>
       <section className="detail-page">
@@ -11,7 +11,7 @@ export default function NotesDetail({ id, title, body, createdAt, FormatDate, de
         <p className="detail-page__createdAt">{FormatDate(createdAt)}</p>
         <div className="detail-page__body">{body}</div>
         <div className="detail-page__action">
-          <ArchivesButton id={id} ArchiveNote={ArchiveNote} />
+          <ArchivesButton id={id} ArchiveNote={ArchiveNote} UnarchiveNote={UnarchiveNote} />
           <DeleteButton id={id} deleteNote={deleteNote} />
         </div>
       </section>
@@ -27,4 +27,5 @@ NotesDetail.propTypes = {
   FormatDate: PropTypes.func.isRequired,
   deleteNote: PropTypes.func.isRequired,
   ArchiveNote: PropTypes.func.isRequired,
+  UnarchiveNote: PropTypes.func.isRequired,
 };

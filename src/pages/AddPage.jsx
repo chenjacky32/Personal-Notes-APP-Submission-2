@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import FormInput from "../component/FormInput";
 import ButtonInput from "../component/ButtonInput";
-import { addNote } from "../utils/local-data";
 import { useNavigate } from "react-router-dom";
+import { addNote, getActiveNotes, getArchivedNotes } from "../utils/api";
 
 export default function AddPage() {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-
+  const [title, setTitle] = React.useState("");
+  const [body, setBody] = React.useState("");
   const Navigate = useNavigate();
 
-  function AddNoteHandler(notes) {
-    addNote({ title: title, body: body });
-    Navigate("/notes/");
+  async function addingNote(note) {
+    await addNote({ title: title, body: body });
+
     setTitle("");
     setBody("");
+    Navigate("/notes/");
   }
 
   function onInputHandler(e) {
@@ -32,7 +32,7 @@ export default function AddPage() {
       <section className="add-new-page">
         <FormInput title={title} InputHandler={onInputHandler} ChangeTitle={EventChangeTitle} body={body} />
         <div className="anewTitlection">
-          <ButtonInput addNote={AddNoteHandler} />
+          <ButtonInput addNote={addingNote} />
         </div>
       </section>
     </>

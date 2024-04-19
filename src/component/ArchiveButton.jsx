@@ -1,13 +1,36 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { getNote } from "../utils/api";
 
-export default function ArchivesButton({ id, ArchiveNote }) {
+export default function ArchivesButton({ id, ArchiveNote, UnarchiveNote }) {
   const Navigate = useNavigate();
+  const [isArchived, setIsArchived] = React.useState(false);
+
+  React.useEffect(() => {
+    getNote(id).then(({ data }) => {
+      setIsArchived(data.archived);
+    });
+  }, [id]);
+
   function HandleChangeArchive(id) {
     ArchiveNote(id);
     Navigate("/notes/");
   }
+
+  function HandleChangeUnarchive(id) {
+    UnarchiveNote(id);
+    Navigate("/notes/");
+  }
+
+  function HandleClick(id) {
+    if (isArchived) {
+      HandleChangeUnarchive(id);
+    } else {
+      HandleChangeArchive(id);
+    }
+  }
+
   return (
     <>
       <button
@@ -15,7 +38,7 @@ export default function ArchivesButton({ id, ArchiveNote }) {
         type="button"
         title="Arsipkan"
         onClick={() => {
-          HandleChangeArchive(id);
+          HandleClick(id);
         }}
       >
         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -30,4 +53,5 @@ export default function ArchivesButton({ id, ArchiveNote }) {
 ArchivesButton.propTypes = {
   id: PropTypes.string.isRequired,
   ArchiveNote: PropTypes.func.isRequired,
+  UnarchiveNote: PropTypes.func.isRequired,
 };

@@ -2,49 +2,43 @@ import React from "react";
 import SearchBar from "../component/SearchBar";
 import NotesList from "../component/NotesList";
 import ButtonAddPage from "../component/ButtonAddPage";
-import { getAllNotes, getActiveNotes, getArchivedNotes } from "../utils/local-data";
 import { showFormattedDate } from "../utils";
+import { useSearchParams } from "react-router-dom";
+import { getActiveNotes, getArchivedNotes } from "../utils/api";
 
-class Archives extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      AllNotes: getAllNotes(),
-      isArchive: getActiveNotes(),
-      isArchived: getArchivedNotes(),
-      Search: "",
-    };
-    this.onSearchHandler = this.onSearchHandler.bind(this);
+export default function Archives() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeNotes, setActiveNotes] = React.useState([]);
+  const [archivedNotes, setArchivedNotes] = React.useState([]);
+  const [keyword, setKeyword] = React.useState(() => {
+    return searchParams.get("keyword") || "";
+  });
+
+  React.useEffect(() => {
+    getArchivedNotes().then(({ data }) => {
+      setArchivedNotes(data);
+    });
+  }, []);
+
+  async function onKeywordChangeHandler(keyword) {
+    setKeyword(keyword);
+    setSearchParams({ keyword });
   }
 
-  onSearchHandler(keyword) {
-    this.setState(() => {
-      return {
-        Search: keyword,
-      };
-    });
-  }
-  render() {
-    const ActiveNotes = this.state.AllNotes.filter((item) => {
-      return item.archived === false && item.title.toLowerCase().includes(this.state.Search.toLowerCase());
-    });
-    const ArchiveNotes = this.state.AllNotes.filter((item) => {
-      return item.archived === true && item.title.toLowerCase().includes(this.state.Search.toLowerCase());
-    });
+  const FilterArchiveNotes = archivedNotes.filter((item) => {
+    return item.archived === true && item.title.toLowerCase().includes(keyword.toLowerCase());
+  });
 
-    return (
-      <>
-        <section className="archives-page">
-          <h2>Catatan Arsip</h2>
-          <SearchBar Search={this.state.Search} SearchHandler={this.onSearchHandler} />
-          <NotesList ArchiveNotes={ArchiveNotes} FormatDate={showFormattedDate} isArchive={this.state.isArchive} />
-          <div className="homepage__action">
-            <ButtonAddPage />
-          </div>
-        </section>
-      </>
-    );
-  }
+  return (
+    <>
+      <section className="homepage">
+        <h2>Catatan Arsip</h2>
+        <SearchBar Search={keyword} SearchHandler={onKeywordChangeHandler} />
+        <NotesList ActiveNotes={[]} FormatDate={showFormattedDate} ArchiveNotes={FilterArchiveNotes} />
+        <div className="homepage__action">
+          <ButtonAddPage />
+        </div>
+      </section>
+    </>
+  );
 }
-
-export default Archives;

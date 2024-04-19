@@ -275,6 +275,35 @@ main {
   color: var(--on-background);
 }
 
+.navigation ul {
+  display: flex;
+  align-items: center;
+  justify-items: baseline;
+}
+
+.navigation ul li {
+  display: inline-block;
+  padding-block: 0.7rem;
+  padding-inline: 7px;
+}
+
+.navigation ul li a {
+  font-size: 28px;
+  color: white;
+}
+
+.navigation ul li button {
+  background-color: transparent;
+  font-family: "Inter", sans-serif;
+  border: 0;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
 @media screen and (min-width: 650px) {
   .notes-list {
     grid-template-columns: repeat(2, 1fr);
