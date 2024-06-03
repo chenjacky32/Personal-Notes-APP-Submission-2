@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "./Navigation";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import AddPage from "../pages/AddPage";
 import Archives from "../pages/Archives";
@@ -85,11 +85,12 @@ export default function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/notes/" element={<HomePage />} />
+            <Route path="/" element={<Navigate to="/notes" replace />} />
+            <Route path="/notes" element={<HomePage />} />
             <Route path="/notes/archives" element={<Archives />} />
             <Route path="/notes/:id" element={<WrapperDetailNotes />} />
             <Route path="/notes/new" element={<AddPage />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </main>
       </div>
