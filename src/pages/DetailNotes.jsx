@@ -15,7 +15,7 @@ export default function DetailNotes() {
     });
   }, [id]);
 
-  if (notes === null) {
+  if (!notes) {
     return <p>Notes is not found!</p>;
   }
 
