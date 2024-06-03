@@ -20,19 +20,19 @@ export default function Navigation({ logout }) {
       <nav className="navigation">
         <ul>
           <li>
-            <button onClick={toggleTheme}>{theme === "light" ? <CgDarkMode /> : <FiSun />}</button>
+            <button onClick={toggleTheme}>{theme === "light" ? <CgDarkMode color="var(--on-background)" /> : <FiSun color="var(--on-background)" />}</button>
           </li>
           <li>
-            <MdGTranslate />
+            <MdGTranslate color="var(--on-background)" />
           </li>
           <li>
             <Link to="/notes/archives">
-              <BsArchive />
+              <BsArchive color="var(--on-background)" />
             </Link>
           </li>
           <li>
             <button onClick={logout}>
-              <FiLogOut />
+              <FiLogOut color="var(--on-background)" />
             </button>
           </li>
         </ul>
