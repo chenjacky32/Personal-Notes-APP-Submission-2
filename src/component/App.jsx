@@ -63,17 +63,19 @@ export default function App() {
 
   if (authedUser === null) {
     return (
-      <div className="app-container">
-        <header>
-          <h1>Login</h1>
-        </header>
-        <main>
-          <Routes>
-            <Route path="/*" element={<LoginPage onLoginSuccess={onLoginSuccess} />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Routes>
-        </main>
-      </div>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <div className="app-container">
+          <header>
+            <Navigation logout={onLogout} name={authedUser} />
+          </header>
+          <main>
+            <Routes>
+              <Route path="/*" element={<LoginPage onLoginSuccess={onLoginSuccess} />} />
+              <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeContext.Provider>
     );
   }
 

@@ -9,7 +9,7 @@ import { CgDarkMode } from "react-icons/cg";
 import { FiSun } from "react-icons/fi";
 import ThemeContext from "../contexts/LocaleContext";
 
-export default function Navigation({ logout }) {
+export default function Navigation({ logout, name }) {
   const { theme, toggleTheme } = React.useContext(ThemeContext);
 
   return (
@@ -25,16 +25,20 @@ export default function Navigation({ logout }) {
           <li>
             <MdGTranslate color="var(--on-background)" />
           </li>
-          <li>
-            <Link to="/notes/archives">
-              <BsArchive color="var(--on-background)" />
-            </Link>
-          </li>
-          <li>
-            <button onClick={logout}>
-              <FiLogOut color="var(--on-background)" />
-            </button>
-          </li>
+          {name !== null ? (
+            <>
+              <li>
+                <Link to="/notes/archives">
+                  <BsArchive color="var(--on-background)" />
+                </Link>
+              </li>
+              <li>
+                <button onClick={logout}>
+                  <FiLogOut color="var(--on-background)" />
+                </button>
+              </li>
+            </>
+          ) : null}
         </ul>
       </nav>
     </>
