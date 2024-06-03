@@ -289,6 +289,22 @@ main {
   color: var(--on-background);
 }
 
+.login-page,
+.register-page {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-input,
+.register-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .navigation ul {
   display: flex;
   align-items: center;

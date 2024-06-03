@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const BASE_URL = "https://notes-api.dicoding.dev/v1";
 
 function getAccessToken() {
@@ -30,9 +32,19 @@ async function login({ email, password }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
-    alert(responseJson.message);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: responseJson.message,
+    });
     return { error: true, data: null };
   }
+
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "You have successfully logged in!",
+  });
 
   return { error: false, data: responseJson.data };
 }
@@ -49,10 +61,19 @@ async function register({ name, email, password }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
-    alert(responseJson.message);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: responseJson.message,
+    });
     return { error: true };
   }
 
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "You have successfully registered!",
+  });
   return { error: false };
 }
 
@@ -79,9 +100,19 @@ async function addNote({ title, body }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: responseJson.message,
+    });
     return { error: true, data: null };
   }
 
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "You have successfully added a new note!",
+  });
   return { error: false, data: responseJson.data };
 }
 
@@ -154,9 +185,19 @@ async function deleteNote(id) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: responseJson.message,
+    });
     return { error: true, data: null };
   }
 
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "You have successfully deleted a note!",
+  });
   return { error: false, data: responseJson.data };
 }
 

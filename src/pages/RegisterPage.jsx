@@ -16,6 +16,7 @@ export default function RegisterPage() {
   return (
     <>
       <section className="register-page">
+        <h2>Silahkan Registrasi</h2>
         <RegisterInput register={onRegisterHandler} />
         <p>
           Kembali ke <Link to="/">Masuk</Link>

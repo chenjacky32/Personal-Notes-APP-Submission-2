@@ -11,6 +11,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import { func } from "prop-types";
 import ThemeContext from "../contexts/LocaleContext";
+import Swal from "sweetalert2";
 
 export default function App() {
   const [authedUser, setAuthedUser] = React.useState(null);
@@ -53,6 +54,11 @@ export default function App() {
   }
 
   function onLogout() {
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "You have successfully logged out!",
+    });
     setAuthedUser(null);
     putAccessToken("");
   }
